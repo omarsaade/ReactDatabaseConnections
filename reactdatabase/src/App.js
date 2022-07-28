@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import MoviesList from './components/MoviesList';
 import './App.css';
 
@@ -18,10 +17,9 @@ function App() {
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
-
+      //its better to check it before the await
 
       const data = await response.json();
-
       const transformedMovies = data.results.map(movieData => (
 
         {
@@ -43,7 +41,7 @@ function App() {
     setIsLoading(false);
   }
 
-  let content = <p>Found no movies.</p>;
+  let content = <p>Found no movies.</p>; //fia tkun he by default
   if (movies.length > 0) { content = <MoviesList movies={movies} /> }
   if (error) { content = <p>{error}</p> }
   if (isLoading) { content = <p>Loading...</p> }
