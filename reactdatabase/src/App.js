@@ -12,12 +12,10 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://swapi.dev/api/film/');
-      // https://developer.mozilla.org/en-US/docs/Web/API/Response
+      const response = await fetch('https://swapi.dev/api/films/');
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
-      //its better to check it before the await
 
       const data = await response.json();
       const transformedMovies = data.results.map(movieData => (
@@ -30,18 +28,16 @@ function App() {
         }
 
       ));
-      // console.log(transformedMovies); (6)[{… }, {… }, {… }, {… }, {… }, {… }]
 
       setMovies(transformedMovies);
 
     } catch (error) {
-      // console.log(error.message); //Something went wrong!
       setError(error.message);
     }
     setIsLoading(false);
   }
 
-  let content = <p>Found no movies.</p>; //fia tkun he by default
+  let content = <p>Found no movies.</p>;
   if (movies.length > 0) { content = <MoviesList movies={movies} /> }
   if (error) { content = <p>{error}</p> }
   if (isLoading) { content = <p>Loading...</p> }
